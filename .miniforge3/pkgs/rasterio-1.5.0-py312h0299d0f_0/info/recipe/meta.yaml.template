@@ -1,0 +1,132 @@
+{% set name = "rasterio" %}
+{% set version = "1.5.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/mapbox/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: f5d5cab866545e85a21b1921458ee8c711e23489ccc44fa66c6f70443a3ecae6
+
+build:
+  number: 0
+  skip: true  # [py<312]
+  entry_points:
+    - rio = rasterio.rio.main:main_group
+
+requirements:
+  build:
+    - {{ stdlib("c") }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - numpy >=2
+  host:
+    - pip
+    - python
+    - cython >=3.1,<=3.2
+    - numpy {{ numpy }}
+    - libgdal-core >=3.8
+    - setuptools >=77.0.3
+    - proj
+  run:
+    - python
+    - attrs
+    - affine
+    - certifi
+    - click >=4,!=8.2.* # https://github.com/pallets/click/issues/2939
+    - cligj >=0.5
+    - numpy
+    - pyparsing
+    - libgdal-core >=3.8
+    - proj
+  run_constrained:
+    - boto3 >=1.2.4
+
+{% set tests_to_skip = "_not_a_real_test" %}
+
+#  <Result RasterioIOError('HTTP response code: 403')>.exit_code
+{% set tests_to_skip = tests_to_skip + " or test_s3_open_with_env" %}
+{% set tests_to_skip = tests_to_skip + " or test_s3_open_with_implicit_env" %}
+{% set tests_to_skip = tests_to_skip + " or test_s3_open_with_implicit_env_no_boto3" %}
+{% set tests_to_skip = tests_to_skip + " or test_env_open_s3" %}
+{% set tests_to_skip = tests_to_skip + " or test_env_open_s3_credentials" %}
+{% set tests_to_skip = tests_to_skip + " or test_s3_rio_info" %}
+
+# rasterio._err.CPLE_HttpResponseError: CURL error: schannel: the revocation status is unknown
+{% set tests_to_skip = tests_to_skip + " or test_datasetreader_ctor_url" %}  # [win]
+{% set tests_to_skip = tests_to_skip + " or test_issue1982" %}  # [win]
+
+test:
+  source_files:
+    - tests
+  imports:
+    - rasterio
+    - rasterio.abc
+    - rasterio.control
+    - rasterio.coords
+    - rasterio.crs
+    - rasterio.drivers
+    - rasterio.dtypes
+    - rasterio.enums
+    - rasterio.env
+    - rasterio.errors
+    - rasterio.features
+    - rasterio.fill
+    - rasterio.io
+    - rasterio.mask
+    - rasterio.merge
+    - rasterio.plot
+    - rasterio.profiles
+    - rasterio.rio
+    - rasterio.rpc
+    - rasterio.session
+    - rasterio.shutil
+    - rasterio.stack
+    - rasterio.transform
+    - rasterio.vrt
+    - rasterio.warp
+    - rasterio.windows
+  requires:
+    - pip
+    - pytest >=2.8.2,<8
+    - pytest-cov >=2.2.0
+    - ipython >=2.0
+    - aiohttp
+    - boto3 >=1.2.4
+    - fsspec
+    - hypothesis
+    - libgdal-netcdf
+    - matplotlib-base
+    - packaging
+    - requests
+    - shapely
+
+  files:
+    - test_data/test.tif
+
+  commands:
+    - pip check
+    - rio --help
+    - rio info test_data/test.tif   # [not win]
+    - rio info test_data\\test.tif  # [win]
+    # The tests on windows hard fail no matter what
+    # Error in sys.excepthook
+    - python -m pytest -v -m "not wheel" -k "not ({{ tests_to_skip }})" -rxXs tests  # [unix]
+
+about:
+  home: https://github.com/mapbox/rasterio
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE.txt
+  description: |
+     Rasterio reads and writes these formats and provides a Python API based on N-D arrays.
+  summary: 'Rasterio reads and writes geospatial raster datasets'
+  dev_url: https://github.com/mapbox/rasterio
+  doc_url: https://rasterio.readthedocs.io
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - ceholden
+    - snowman2

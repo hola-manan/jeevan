@@ -1,0 +1,81 @@
+# This file created by conda-build 24.11.2
+# meta.yaml template originally from:
+# C:\b\abs_14317anbh_\clone\recipe, last modified Fri Dec 13 16:21:40 2024
+# ------------------------------------------------
+
+package:
+  name: geos
+  version: 3.10.6
+source:
+  patches:
+    - patches/0001-unconditional-geos-pc.patch
+  sha256: 42c9e048b7103ecfce784e82aef2bcd1afec340b4483295cb3ff3817960789b1
+  url: https://github.com/libgeos/libgeos/archive/3.10.6.tar.gz
+build:
+  number: '0'
+  run_exports:
+    - geos >=3.10.6,<3.10.7.0a0
+  string: he74ecf9_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2024.11.26 haa95532_0
+    - cmake 3.26.4 h693b641_0
+    - expat 2.6.4 h8ddb27b_0
+    - libffi 3.4.4 hd77b12b_1
+    - libmpdec 4.0.0 h827c3e9_0
+    - libuv 1.48.0 h827c3e9_0
+    - lz4-c 1.9.4 h2bbff1b_1
+    - m2-msys2-runtime 2.5.0.17080.65c939c 3
+    - m2-patch 2.7.5 2
+    - msys2-conda-epoch 20160418 1
+    - ninja 1.12.1 haa95532_0
+    - ninja-base 1.12.1 h4157e71_0
+    - openssl 3.0.15 h827c3e9_0
+    - python 3.13.1 hadb2040_100_cp313
+    - python_abi 3.13 0_cp313
+    - sqlite 3.45.3 h2bbff1b_0
+    - tk 8.6.14 h0416ee5_0
+    - tzdata 2024b h04d1e81_0
+    - vc 14.40 haa95532_2
+    - vs2015_runtime 14.42.34433 h9531ae6_2
+    - vs2019_win-64 19.29.30154 h96f319f_5
+    - vswhere 2.8.4 haa95532_0
+    - xz 5.4.6 h8cc25b3_1
+    - zlib 1.2.13 h8cc25b3_1
+    - zstd 1.5.6 h8880b57_0
+  host:
+    - vc 14.40 haa95532_2
+    - vs2015_runtime 14.42.34433 h9531ae6_2
+  run:
+    - vc >=14.2,<15.0a0
+    - vs2015_runtime >=14.29.30133,<15.0a0
+test:
+  commands: null
+about:
+  description: 'GEOS (Geometry Engine - Open Source) is a C++ port of the Java Topology
+
+    Suite (JTS). As such, it aims to contain the complete functionality of
+
+    JTS in C++.
+
+    '
+  dev_url: https://github.com/libgeos/geos
+  doc_url: https://libgeos.org/
+  home: https://libgeos.org/
+  license: LGPL-2.1-or-later
+  license_family: LGPL
+  license_file: COPYING
+  summary: Geometry Engine - Open Source
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 14fb009f-1611-4aa2-a357-ed58451de07f
+  recipe-maintainers:
+    - gillins
+    - msarahan
+    - ocefpaf
+    - pelson
+    - xylar
+  remote_url: git@github.com:AnacondaRecipes/geos-feedstock.git
+  sha: 7da5a81f653e5dcf7305dd400231c82dddf0eda7

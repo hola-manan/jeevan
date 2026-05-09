@@ -1,0 +1,71 @@
+# This file created by conda-build 25.11.1
+# ------------------------------------------------
+
+package:
+  name: openssl
+  version: 3.6.1
+source:
+  url: https://github.com/openssl/openssl/releases/download/openssl-3.6.1/openssl-3.6.1.tar.gz
+  sha256: b1bfedcd5b289ff22aee87c9d600f515767ebf45f77168cb6d64f231f518a82e
+build:
+  run_exports:
+    - openssl >=3.6.1,<4.0a0
+  number: 1
+  string: hf411b9b_1
+requirements:
+  build:
+    - _openmp_mutex 4.5 2_gnu
+    - libgcc 15.2.0 h8ee18e1_16
+    - libgomp 15.2.0 h8ee18e1_16
+    - libwinpthread 12.0.0.r4.gg4f2fc60ca h57928b3_10
+    - make 4.4.1 h0e40799_2
+    - perl 5.32.1.1 7_h57928b3_strawberry
+    - ucrt 10.0.26100.0 h57928b3_0
+    - vs2022_win-64 19.44.35207 ha74f236_34
+    - vs_win-64 2022.14 ha74f236_34
+    - vswhere 3.1.7 h40126e0_1
+  run:
+    - ca-certificates
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+  host:
+    - ucrt 10.0.26100.0 h57928b3_0
+    - vc 14.3 h41ae7f8_34
+    - vc14_runtime 14.44.35208 h818238b_34
+    - vcomp14 14.44.35208 h818238b_34
+test:
+  requires:
+    - pkg-config
+    - ripgrep
+  commands:
+    - copy NUL checksum.txt
+    - '%LIBRARY_BIN%\openssl sha256 checksum.txt'
+    - if not exist "%SSL_CERT_FILE%" exit 1
+    - if not exist "%LIBRARY_INC%"\\openssl\\applink.c exit 1
+    - pkg-config --print-errors --exact-version "3.6.1" openssl
+    - type %CONDA_PREFIX%\etc\conda\activate.d\openssl_activate-win.sh | rg \r & if
+      ERRORLEVEL ==1 (exit 0) else (exit 1)
+    - type %CONDA_PREFIX%\etc\conda\deactivate.d\openssl_deactivate-win.sh | rg \r
+      & if ERRORLEVEL ==1 (exit 0) else (exit 1)
+about:
+  home: https://www.openssl.org/
+  license_file: LICENSE.txt
+  license: Apache-2.0
+  license_family: Apache
+  summary: OpenSSL is an open-source implementation of the SSL and TLS protocols
+  dev_url: https://github.com/openssl/openssl
+  doc_url: https://docs.openssl.org/master/
+extra:
+  recipe-maintainers:
+    - h-vetinari
+    - jakirkham
+    - msarahan
+    - ocefpaf
+    - pelson
+  feedstock-name: openssl
+  final: true
+  copy_test_source_files: true
+  flow_run_id: azure_20260127.15.1
+  remote_url: https://github.com/conda-forge/openssl-feedstock
+  sha: 3d85e0e6e215fda75bf75557b62878c9b7c54eea

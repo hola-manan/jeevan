@@ -1,0 +1,85 @@
+# This file created by conda-build 24.9.0
+# ------------------------------------------------
+
+package:
+  name: reproc
+  version: 14.2.5.post0
+source:
+  - patches:
+      - 103-remove-fd-limit.patch
+    sha256: 69467be0cfc80734b821c54ada263c8f1439f964314063f76b7cf256c3dc7ee8
+    url: https://github.com/DaanDeMeyer/reproc/archive/v14.2.5.tar.gz
+build:
+  number: 0
+  run_exports:
+    - reproc >=14.2,<15.0a0
+  string: h2466b09_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2466b09_7
+    - ca-certificates 2024.8.30 h56e8100_0
+    - cmake 3.30.5 h400e5d1_0
+    - krb5 1.21.3 hdf4eb48_0
+    - libcurl 8.10.1 h1ee3ff0_0
+    - libexpat 2.6.4 he0c23c2_0
+    - libssh2 1.11.0 h7dfc565_0
+    - libuv 1.49.2 h2466b09_0
+    - libzlib 1.3.1 h2466b09_2
+    - ninja 1.12.1 hc790b64_0
+    - openssl 3.4.0 h2466b09_0
+    - ucrt 10.0.22621.0 h57928b3_1
+    - vc 14.3 ha32ba9b_23
+    - vc14_runtime 14.42.34433 he29a5d6_23
+    - vs2015_runtime 14.42.34433 hdffcdeb_23
+    - vs2019_win-64 19.29.30139 he1865b1_23
+    - vs_win-64 2019.11 he1865b1_23
+    - vswhere 3.1.7 h57928b3_0
+    - xz 5.2.6 h8d14728_0
+    - zstd 1.5.6 h0ea2cb4_0
+  host:
+    - ucrt 10.0.22621.0 h57928b3_1
+    - vc 14.3 ha32ba9b_23
+    - vc14_runtime 14.42.34433 he29a5d6_23
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.2,<15
+    - vc14_runtime >=14.29.30139
+test:
+  commands:
+    - '@echo on'
+    - if not exist %LIBRARY_PREFIX%\include\reproc\run.h (exit 1)
+    - if not exist %LIBRARY_PREFIX%\lib\reproc.lib (exit 1)
+    - if not exist %LIBRARY_PREFIX%\bin\reproc.dll (exit 1)
+    - if not exist %LIBRARY_PREFIX%\lib\cmake\reproc\reproc-config.cmake (exit 1)
+    - if exist %LIBRARY_PREFIX%\include\reproc++\run.hpp (exit 1)
+    - if exist %LIBRARY_PREFIX%\lib\reproc++.lib (exit 1)
+    - if exist %LIBRARY_PREFIX%\bin\reproc++.dll (exit 1)
+    - if exist %LIBRARY_PREFIX%\lib\reproc_static.lib (exit 1)
+    - if exist %LIBRARY_PREFIX%\lib\reproc++_static.lib (exit 1)
+    - if exist %LIBRARY_PREFIX%\lib\cmake\reproc++\reproc++-config.cmake (exit 1)
+    - cmake -G Ninja -S test-c/ -B build-test-c/ %CMAKE_ARGS%
+    - cmake --build build-test-c/
+    - cmake --build build-test-c/ --target test
+  files:
+    - test-c/
+  requires:
+    - cmake
+    - ninja
+    - vs2019_win-64
+about:
+  dev_url: https://github.com/DaanDeMeyer/reproc
+  home: https://github.com/DaanDeMeyer/reproc
+  license: MIT
+  license_file: LICENSE
+  summary: reproc (Redirected Process) is a cross-platform C/C++ library that simplifies
+    starting, stopping and communicating with external programs.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: azure_20241118.2.1
+  recipe-maintainers:
+    - AntoinePrv
+    - DaanDeMeyer
+    - wolfv
+  remote_url: https://github.com/conda-forge/reproc-feedstock
+  sha: 0d8c38aefb9f2dc6ba1129b03d070f7f082dafff

@@ -1,0 +1,64 @@
+{% set version = "9f" %}
+
+package:
+  name: jpeg
+  version: {{ version }}
+
+source:
+  url: https://www.ijg.org/files/jpegsrc.v{{ version }}.tar.gz
+  sha256: 04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b
+  patches:                  # [win]
+    - CMakeLists.txt.patch  # [win]
+
+build:
+  number: 0
+  run_exports:
+    # compatible within major version numbers
+    # https://abi-laboratory.pro/tracker/timeline/libjpeg/
+    - {{ pin_subpackage('jpeg') }}
+
+requirements:
+  build:
+    - cmake         # [win]
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
+    - libtool       # [unix]
+test:
+  files:
+    - testorig.jpg
+  commands:
+    - djpeg -dct int -ppm -outfile testout.ppm testorig.jpg
+    - if not exist %PREFIX%/Library/lib/pkgconfig/libjpeg.pc exit 1  # [win]
+    - if not exist %PREFIX%/Library/bin/libjpeg.dll exit 1  # [win]
+    - if not exist %PREFIX%/Library/lib/libjpeg.lib exit 1  # [win]
+    - if not exist %PREFIX%/Library/lib/jpeg.lib exit 1  # [win]
+    - if not exist %PREFIX%/Library/lib/jpeg-static.lib exit 1  # [win]
+    - if not exist %PREFIX%/Library/include/jpeglib.h exit 1  # [win]
+    - test -f ${PREFIX}/lib/pkgconfig/libjpeg.pc  # [unix]
+    - test -f ${PREFIX}/lib/libjpeg.so  # [linux]
+    - test -f ${PREFIX}/lib/libjpeg.so.9  # [linux]
+    - test -f ${PREFIX}/lib/libjpeg.so.9.6.0  # [linux]
+    - test -f ${PREFIX}/lib/libjpeg.9.dylib  # [osx]
+    - test -f ${PREFIX}/lib/libjpeg.dylib  # [osx]
+    - test -f ${PREFIX}/include/jpeglib.h  # [unix]
+
+about:
+  home: https://www.ijg.org/
+  license: IJG
+  license_file: README
+  license_family: Other
+  summary: read/write jpeg COM, EXIF, IPTC medata
+  description: |
+    This software library is the basis for the processing of images in the
+    ubiquitous JPEG format and is used worldwide in a countless number of
+    applications of software vendors and in the photographic industry under
+    a fee-free license with open source code.
+  doc_url: https://www.ijg.org/files/
+  dev_url: https://www.ijg.org/files/
+    
+extra:    
+  recipe-maintainers:
+    - gillins
+    - jakirkham
+    - msarahan
+    - katietz

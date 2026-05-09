@@ -1,0 +1,15 @@
+- script:
+    content: |-
+      cmake -G Ninja -S test/ -B build-test/ %CMAKE_ARGS%
+      cmake --build build-test/
+      cmake --build build-test/ --target test
+    cwd: etc/conda/test-files/yaml-cpp/0
+  requirements:
+    build:
+    - vs2019_win-64
+    - vs2019_win-64
+    - cmake <4
+    - ninja
+  files:
+    recipe:
+    - test/

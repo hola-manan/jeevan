@@ -1,0 +1,80 @@
+#!/bin/sh
+CONFIG_LIBS="-LIBPATH:C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib gdal"
+CONFIG_DEP_LIBS="C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/archive.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/iconv.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/charset.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libssl.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libcrypto.lib crypt32 C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/lzma.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/liblz4.lib wbemuuid C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/deflate.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/geotiff_i.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/tiff.lib ws2_32 C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/Lerc.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/zstd.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/jpeg.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libpng.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/blosc.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libwebp.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/kmlbase.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/kmldom.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/kmlengine.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/minizip.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/uriparser.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/z.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/pcre2-8.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/spatialite_i.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/sqlite3.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/xerces-c_3.lib "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/um/x64/odbccp32.lib" "C:/Program Files (x86)/Windows Kits/10/Lib/10.0.26100.0/um/x64/WS2_32.Lib" legacy_stdio_definitions.lib odbccp32.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libexpat.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libxml2.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/geos_c.lib C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/libcurl.lib psapi C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/proj.lib"
+CONFIG_PREFIX="C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library"
+CONFIG_CFLAGS="-IC:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/include"
+CONFIG_DATA="C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/share/gdal"
+CONFIG_VERSION="3.11.4"
+CONFIG_GNM_ENABLED=yes
+CONFIG_FORMATS="JPEG raw GTIFF MEM vrt Derived GTI LIBERTIFF HFA NITF GXF AAIGrid CEOS SAR_CEOS DTED JDEM Envisat L1B RS2 ILWIS RMF Leveller SRTMHGT IDRISI GSG ERS PALSARJaxa DIMAP GFF COSAR PDS ADRG COASP TSX Terragen MSGN TIL northwood SAGA XYZ AVIF ESRIC HF2 KMLSUPEROVERLAY CTG ZMap NGSGEOID IRIS MAP CALS SAFE SENTINEL2 PRF MRF WMTS GRIB BMP TGA STACTA SNAP_TIFF BSB AIGrid USGSDEM AirSAR PCIDSK SIGDEM RIK STACIT PDF RCM GDALG PNG GIF WCS HTTP netCDF Zarr DAAS EEDA FITS HDF5 PLMOSAIC WMS OGCAPI WEBP HDF4 MBTiles PostGISRaster KEA JP2OpenJPEG TileDB PCRaster GeoJSON TAB Shape KML VRT AVC GML CSV DGN GMT S57 GeoRSS DXF PGDump GPSBabel EDIGEO SXF OpenFileGDB WAsP Selafin JML VDV FlatGeobuf MapML ADBC MiraMon AIVector JSONFG GPX GMLAS CSW LIBKML NAS PLSCENES WFS OAPIF NGW Elastic Idrisi PDS SQLite GeoPackage OSM VFK MVT PMTiles AmigoCloud Carto ILI PG MSSQLSpatial ODBC PGeo XLSX XLS CAD Parquet Arrow GTFS ODS LVBAG"
+CONFIG_PLUGINDIR="C:/Users/manan/OneDrive2/Desktop/ashi/.conda-gdal/Library/lib/gdalplugins"
+usage()
+
+{
+	cat <<EOF
+Usage: gdal-config [OPTIONS]
+Options:
+	[--prefix[=DIR]]
+	[--libs]
+	[--dep-libs]
+	[--cflags]
+	[--datadir]
+	[--version]
+	[--ogr-enabled]
+	[--gnm-enabled]
+	[--formats]
+	[--plugindir]
+EOF
+	exit $1
+}
+
+if test $# -eq 0; then
+	usage 1 1>&2
+fi
+
+case $1 in
+  --libs)
+    echo $CONFIG_LIBS
+    ;;
+
+  --dep-libs)
+    echo $CONFIG_DEP_LIBS
+    ;;
+
+  --cflags)
+    echo $CONFIG_CFLAGS
+    ;;
+
+  --datadir)
+    echo $CONFIG_DATA
+    ;;
+
+  --prefix)
+    echo $CONFIG_PREFIX
+    ;;
+
+  --version)
+    echo $CONFIG_VERSION
+    ;;
+
+  --ogr-enabled)
+    echo yes
+    ;;
+
+  --gnm-enabled)
+    echo $CONFIG_GNM_ENABLED
+    ;;
+
+  --formats)
+    echo $CONFIG_FORMATS
+    ;;
+
+  --plugindir)
+    echo $CONFIG_PLUGINDIR
+    ;;
+
+  *)
+    usage 1 1>&2
+    ;;
+
+esac

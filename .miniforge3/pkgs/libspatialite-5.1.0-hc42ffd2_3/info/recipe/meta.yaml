@@ -1,0 +1,100 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176945475219797\libspatialite-feedstock\recipe, last modified Mon Jan 26 19:14:56 2026
+# ------------------------------------------------
+
+package:
+  name: libspatialite
+  version: 5.1.0
+source:
+  url: https://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-5.1.0.tar.gz
+  sha256: 43be2dd349daffe016dd1400c5d11285828c22fea35ca5109f21f3ed50605080
+  patches:
+    - patches/0001-win_fix_paths_no_gpl.patch
+build:
+  number: '3'
+  run_exports:
+    - libspatialite >=5.1.0,<5.2.0a0
+  string: hc42ffd2_3
+requirements:
+  build:
+    - vs2022_win-64 19.44.35207 hc920ad0_10
+    - vs_win-64 2022.14 hc920ad0_10
+    - vswhere 3.1.7 haa95532_0
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.12.2 haa95532_0
+    - expat 2.7.3 h885b0b7_4
+    - freeglut 3.8.0 hfcef157_0
+    - freexl 2.0.0 hd7a5696_0
+    - geos 3.10.6 he74ecf9_0
+    - jpeg 9f ha349fce_0
+    - lerc 4.0.0 h5da7b33_0
+    - libcurl 8.17.0 h6e672f4_1
+    - libdeflate 1.22 h5bf469e_0
+    - libexpat 2.7.3 h885b0b7_4
+    - libiconv 1.16 h2bbff1b_3
+    - libkrb5 1.22.1 hb237eb7_0
+    - libssh2 1.11.1 h2addb87_0
+    - libtiff 4.7.1 h3a18249_0
+    - libwebp-base 1.6.0 hbf3958f_0
+    - libxml2 2.13.9 h6201b9f_0
+    - lz4-c 1.9.4 h2bbff1b_1
+    - minizip 4.0.3 hb68bac4_0
+    - openssl 3.0.18 h543e019_0
+    - proj 9.7.1 hb43cae5_0
+    - sqlite 3.51.1 hda9a48d_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.42 haa95532_5
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h500123d_2
+    - zstd 1.5.6 h8880b57_0
+  run:
+    - freexl >=2.0.0,<3.0a0
+    - geos >=3.10.6,<3.10.7.0a0
+    - libiconv >=1.16,<2.0a0
+    - libxml2 >=2.13.9,<2.14.0a0
+    - minizip >=4.0.3,<5.0a0
+    - proj >=9.7.1,<9.7.2.0a0
+    - sqlite >=3.51.1,<4.0a0
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+    - zlib >=1.2.13,<2.0a0
+about:
+  home: https://www.gaia-gis.it/fossil/libspatialite/index
+  license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
+  license_family: OTHER
+  license_file: COPYING
+  summary: Extend the SQLite core to support fully fledged Spatial SQL capabilities
+  description: 'SpatiaLite is an open source library intended to extend the SQLite
+    core to
+
+    support fully fledged Spatial SQL capabilities.
+
+    SQLite is intrinsically simple and lightweight. It implemented as
+
+    a single lightweight library implementing the full SQL engine
+
+    standard SQL implementation: almost complete SQL-92.
+
+    There is no complex client/server architecture.
+
+    A whole database simply corresponds to a single monolithic file (no size limits)
+
+    any DB-file can be safely exchanged across different platforms, because the
+
+    internal architecture is universally portable no installation, no configuration.
+
+    '
+  doc_url: https://www.gaia-gis.it/fossil/libspatialite/index
+  dev_url: https://www.gaia-gis.it/fossil/libspatialite/dir?type=tree
+extra:
+  recipe-maintainers:
+    - danclewley
+    - gillins
+    - ocefpaf
+  final: true
+  copy_test_source_files: true

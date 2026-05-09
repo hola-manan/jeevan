@@ -1,0 +1,14 @@
+Library/bin/freeglut.dll
+Library/bin/glut.dll
+Library/include/GL/freeglut.h
+Library/include/GL/freeglut_ext.h
+Library/include/GL/freeglut_std.h
+Library/include/GL/freeglut_ucall.h
+Library/include/GL/glut.h
+Library/lib/cmake/FreeGLUT/FreeGLUTConfig.cmake
+Library/lib/cmake/FreeGLUT/FreeGLUTConfigVersion.cmake
+Library/lib/cmake/FreeGLUT/FreeGLUTTargets-release.cmake
+Library/lib/cmake/FreeGLUT/FreeGLUTTargets.cmake
+Library/lib/freeglut.lib
+Library/lib/glut.lib
+Library/lib/pkgconfig/glut.pc

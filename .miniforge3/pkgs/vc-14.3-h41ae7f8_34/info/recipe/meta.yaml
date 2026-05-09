@@ -1,0 +1,45 @@
+# This file created by conda-build 25.11.1
+# ------------------------------------------------
+
+package:
+  name: vc
+  version: 14.3
+source:
+  - url: https://download.visualstudio.microsoft.com/download/pr/40b59c73-1480-4caf-ab5b-4886f176bf71/D62841375B90782B1829483AC75695CCEF680A8F13E7DE569B992EF33C6CD14A/vc_redist.x64.exe
+    sha256: d62841375b90782b1829483ac75695ccef680a8f13e7de569b992ef33c6cd14a
+build:
+  track_features:
+    - vc14
+  number: 34
+  string: h41ae7f8_34
+requirements:
+  run:
+    - vc14_runtime >=14.44.35208
+  build: []
+test:
+  commands: echo "this is an empty wrapper package"
+about:
+  home: https://github.com/conda/conda/wiki/VC-features
+  license: BSD-3-Clause
+  license_family: BSD
+  summary: A meta-package to impose mutual exclusivity among software built with different
+    VS versions
+  description: This metapackage is used to enforce consistency of runtime dependencies
+    within an environment
+  doc_url: https://github.com/conda/conda/wiki/VC-features
+  dev_url: https://github.com/conda/conda/wiki/VC-features
+extra:
+  feedstock-name: vc
+  recipe-maintainers:
+    - 183amir
+    - h-vetinari
+    - isuruf
+    - jakirkham
+    - msarahan
+    - patricksnape
+    - pelson
+  final: true
+  copy_test_source_files: true
+  flow_run_id: azure_20260101.1.1
+  remote_url: https://github.com/conda-forge/vc-feedstock
+  sha: 41025d6f35dbe5134294f7ad2cbca95a25b8ec65

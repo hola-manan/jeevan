@@ -1,0 +1,21 @@
+- script:
+    content: zstd -be -i5
+- script:
+    content: |-
+      set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig"
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      pkg-config --cflags libzstd
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      cd cf_test
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      cmake %CMAKE_ARGS% .
+      if %errorlevel% neq 0 exit /b %errorlevel%
+    cwd: etc/conda/test-files/zstd/1
+  requirements:
+    run:
+    - vs2022_win-64
+    - cmake
+    - pkg-config
+  files:
+    recipe:
+    - cf_test/

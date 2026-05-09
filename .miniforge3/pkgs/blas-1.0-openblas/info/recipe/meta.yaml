@@ -1,0 +1,42 @@
+# This file created by conda-build 25.7.0
+# ------------------------------------------------
+
+package:
+  name: blas
+  version: 1.0
+source:
+  url: https://github.com/OpenMathLib/OpenBLAS/archive/v0.3.30.tar.gz
+  sha256: 27342cff518646afb4c2b976d809102e368957974c250a25ccc965e53063c95d
+  patches:
+    - patches/0003-trmv.patch
+build:
+  string: openblas
+  track_features:
+    - nomkl
+  number: 0
+requirements:
+  build: []
+  run: []
+about:
+  home: https://www.openblas.net/
+  license: BSD-3-Clause
+  license_file:
+    - LICENSE
+    - lapack-netlib/LICENSE
+  license_family: BSD
+  summary: An optimized BLAS library
+  description: OpenBLAS is based on GotoBLAS2 1.13 BSD version.
+  doc_url: https://www.openblas.net/
+  dev_url: https://github.com/xianyi/OpenBLAS
+extra:
+  recipe-maintainers:
+    - beckermr
+    - chenghlee
+    - gillins
+    - groutr
+    - isuruf
+    - jakirkham
+    - jschueller
+    - msarahan
+  final: true
+  copy_test_source_files: true

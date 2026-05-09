@@ -1,0 +1,15 @@
+build_platform: win-64
+c_stdlib: vs
+channel_sources: conda-forge
+channel_targets: conda-forge main
+cxx_compiler: vs2022
+fmt: '12.1'
+libmamba: 2.5.0 h06825f5_0
+libmamba_spdlog: 2.5.0 h9ae1bf1_0
+openssl: '3.5'
+pybind11: 3
+pybind11_abi: 11
+python: 3.13.* *_cp313
+spdlog: '1.17'
+target_platform: win-64
+zstd: '1.5'

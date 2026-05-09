@@ -1,0 +1,73 @@
+# This file created by conda-build 24.11.2
+# meta.yaml template originally from:
+# C:\b\abs_66__wje26d\clone\recipe, last modified Tue Dec 17 08:14:58 2024
+# ------------------------------------------------
+
+package:
+  name: libdeflate
+  version: '1.22'
+source:
+  sha256: 7f343c7bf2ba46e774d8a632bf073235e1fd27723ef0a12a90f8947b7fe851d6
+  url: https://github.com/ebiggers/libdeflate/archive/v1.22.tar.gz
+build:
+  number: '0'
+  run_exports:
+    - libdeflate >=1.22,<1.23.0a0
+  string: h5bf469e_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2bbff1b_6
+    - cmake 3.26.4 h693b641_0
+    - libuv 1.48.0 h827c3e9_0
+    - lz4-c 1.9.4 h2bbff1b_1
+    - ninja-base 1.12.1 h4157e71_0
+    - vc 14.40 haa95532_2
+    - vs2015_runtime 14.42.34433 h9531ae6_2
+    - vs2022_win-64 19.40.33813 h4f40347_2
+    - vswhere 2.8.4 haa95532_0
+    - xz 5.4.6 h8cc25b3_1
+    - zlib 1.2.13 h8cc25b3_1
+    - zstd 1.5.6 h8880b57_0
+  host:
+    - vc 14.40 haa95532_2
+    - vs2015_runtime 14.42.34433 h9531ae6_2
+  run:
+    - vc >=14.40,<15.0a0
+    - vs2015_runtime >=14.42.34433,<15.0a0
+test:
+  commands:
+    - libdeflate-gzip -h
+    - libdeflate-gunzip -h
+    - if not exist %LIBRARY_BIN%\\deflate.dll exit 1
+    - if not exist %LIBRARY_LIB%\\deflate.lib exit 1
+    - if not exist %LIBRARY_LIB%\\pkgconfig\\libdeflate.pc exit 1
+    - if not exist %LIBRARY_INC%\\libdeflate.h exit 1
+about:
+  description: 'libdeflate is heavily optimized. It is significantly faster than the
+    zlib
+
+    library, both for compression and decompression, and especially on x86
+
+    processors. In addition, libdeflate provides optional high compression
+
+    modes that provide a better compression ratio than the zlib''s "level 9".
+
+    '
+  dev_url: https://github.com/ebiggers/libdeflate
+  doc_url: https://github.com/ebiggers/libdeflate/blob/master/README.md
+  home: https://github.com/ebiggers/libdeflate
+  license: MIT
+  license_family: MIT
+  license_file: COPYING
+  summary: libdeflate is a library for fast, whole-buffer DEFLATE-based compression
+    and decompression.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 666af6a7-d3d5-48f5-944c-d3fa49a0c223
+  recipe-maintainers:
+    - dpryan79
+    - hmaarrfk
+    - rhpvorderman
+  remote_url: git@github.com:AnacondaRecipes/libdeflate-feedstock.git
+  sha: 5af8b9e3580636e26c7b60be11fd30e6312ced03

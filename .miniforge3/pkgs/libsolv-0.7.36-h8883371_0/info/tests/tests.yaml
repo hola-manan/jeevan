@@ -1,0 +1,20 @@
+- script:
+    content: |-
+      dumpsolv.exe -h
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      cmake -G Ninja -S test/ -B build/ -D LIB_NAME="solv" %CMAKE_ARGS%
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      cmake --build build/
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      cmake --build build --target test
+      if %errorlevel% neq 0 exit /b %errorlevel%
+    cwd: etc/conda/test-files/libsolv/0
+  requirements:
+    run:
+    - vs2022_win-64
+    - vs2022_win-64
+    - ninja
+    - cmake <4.0
+  files:
+    recipe:
+    - test/

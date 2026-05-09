@@ -1,0 +1,28 @@
+# This file created by conda-build 3.20.5
+# meta.yaml template originally from:
+# D:\a\1\s\recipe, last modified Wed Dec 30 02:35:48 2020
+# ------------------------------------------------
+
+package:
+    name: miniforge_console_shortcut
+    version: '1.0'
+build:
+    number: '0'
+    string: h57928b3_0
+requirements:
+    build: []
+    run: []
+test:
+    commands:
+        - if not exist %PREFIX%\\Menu\\console_shortcut.json exit 1
+        - if not exist %PREFIX%\\Menu\\console_shortcut.ico exit
+about:
+    home: https://github.com/conda-forge/console_shortcut-feedstock
+    license: BSD-3-Clause
+    license_file: LICENSE.txt
+    summary: Command prompt shortcut for Windows with base environment activated
+extra:
+    copy_test_source_files: true
+    final: true
+    recipe-maintainers:
+        - ericpre

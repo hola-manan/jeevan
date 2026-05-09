@@ -1,0 +1,75 @@
+# This file created by conda-build 3.27.0
+# meta.yaml template originally from:
+# C:\b\abs_7370zlttep\clone\recipe, last modified Mon Jan  8 19:26:29 2024
+# ------------------------------------------------
+
+package:
+  name: freexl
+  version: 2.0.0
+source:
+  patches:
+    - patches/aarch64.patch
+    - patches/makefile.vc.patch
+    - patches/nmake.opt.patch
+  sha256: 176705f1de58ab7c1eebbf5c6de46ab76fcd8b856508dbd28f5648f7c6e1a7f0
+  url: https://www.gaia-gis.it/gaia-sins/freexl-2.0.0.tar.gz
+build:
+  number: '0'
+  run_exports:
+    - freexl >=2.0.0,<3.0a0
+  string: hd7a5696_0
+requirements:
+  build:
+    - m2-msys2-runtime 2.5.0.17080.65c939c 3
+    - m2-patch 2.7.5 2
+    - msys2-conda-epoch 20160418 1
+    - vs2017_win-64 19.16.27032.1 hb4161e2_3
+    - vswhere 2.8.4 haa95532_0
+  host:
+    - bzip2 1.0.8 he774522_0
+    - expat 2.5.0 hd77b12b_0
+    - libiconv 1.16 h2bbff1b_2
+    - lz4-c 1.9.4 h2bbff1b_0
+    - minizip 4.0.3 hb68bac4_0
+    - vc 14.2 h21ff451_1
+    - vs2015_runtime 14.27.29016 h5e58377_2
+    - xz 5.4.5 h8cc25b3_0
+    - zlib 1.2.13 h8cc25b3_0
+    - zstd 1.5.5 hd43e919_0
+  run:
+    - expat >=2.5.0,<3.0a0
+    - libiconv >=1.16,<2.0a0
+    - minizip >=4.0.3,<5.0a0
+    - vc >=14.1,<15.0a0
+    - vs2015_runtime >=14.16.27012,<15.0a0
+test:
+  commands: null
+about:
+  description: 'FreeXL is an open source library to extract valid data from within
+    Spreadsheets.
+
+    The following document formats are supported:
+
+    -  MS Excel legacy BIFF binary format (.xls)
+
+    -  MS Excel new XML-based format (.xlsx)
+
+    -  Free/OpenOffice Calc XML-based format (.ods)
+
+    '
+  dev_url: https://www.gaia-gis.it/fossil/freexl/home
+  doc_url: https://www.gaia-gis.it/gaia-sins/freexl-2.0.0-doxy-doc/html/index.html
+  home: https://www.gaia-gis.it/fossil/freexl/index
+  license: MPL-1.1 OR GPL-2.0 OR LGPL-2.1
+  license_family: OTHER
+  license_file: COPYING
+  summary: Extract valid data from within Spreadsheets.
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: 73bd08cd-236d-4a7f-83fe-3c1ebae7cb2d
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
+  remote_url: git@github.com:AnacondaRecipes/freexl-feedstock.git
+  sha: eabceecf464dfd56b609d830e794a225c69d2b77

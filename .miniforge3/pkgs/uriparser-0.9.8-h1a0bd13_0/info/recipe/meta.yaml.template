@@ -1,0 +1,64 @@
+{% set name = "uriparser" %}
+{% set version = "0.9.8" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ name }}-{{ version }}.tar.gz
+  sha256: d6289387eaf2495e38ed80d709ad673fe04d63fad707badfee96f3d2dabc7c35
+
+build:
+  number: 0
+  ignore_run_exports:
+    - libstdcxx-ng  # [linux]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    # URIPARSER_BUILD_TESTS=on requires CXX compiler
+    - {{ compiler('cxx') }}  # [linux]
+    - cmake
+    - ninja-base
+    - pkg-config  # [linux]
+    - gtest
+
+test:
+  commands:
+    - test -f $PREFIX/lib/liburiparser.so  # [linux]
+    - test -f $PREFIX/lib/liburiparser.dylib  # [osx]
+    - test -f $PREFIX/lib/pkgconfig/liburiparser.pc  # [not win]
+    - test -f $PREFIX/lib/cmake/uriparser-{{ version }}/uriparser.cmake  # [not win]
+    - test -f $PREFIX/include/uriparser/Uri.h  # [not win]
+    - test -f $PREFIX/include/uriparser/UriBase.h  # [not win]
+    - test -f $PREFIX/include/uriparser/UriDefsAnsi.h  # [not win]
+    - test -f $PREFIX/include/uriparser/UriDefsConfig.h  # [not win]
+    - test -f $PREFIX/include/uriparser/UriDefsUnicode.h  # [not win]
+    - test -f $PREFIX/include/uriparser/UriIp4.h  # [not win]
+    - if not exist %PREFIX%\\Library\\bin\\uriparser.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\cmake\\uriparser-{{ version }}\\uriparser.cmake exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\Uri.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\UriBase.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\UriDefsAnsi.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\UriDefsConfig.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\UriDefsUnicode.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\uriparser\\UriIp4.h exit 1  # [win]
+
+about:
+  home: https://uriparser.github.io
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: COPYING
+  summary: 'RFC 3986 compliant URI parsing and handling library written in C89'
+  description: |
+    uriparser is a strictly RFC 3986 compliant URI parsing and handling
+    library written in C89 ("ANSI C"). uriparser is cross-platform, fast,
+    supports Unicode, and is licensed under the New BSD license.
+  doc_url: https://uriparser.github.io
+  dev_url: https://github.com/uriparser/uriparser
+
+extra:
+  recipe-maintainers:
+    - pitrou
+    - wesm

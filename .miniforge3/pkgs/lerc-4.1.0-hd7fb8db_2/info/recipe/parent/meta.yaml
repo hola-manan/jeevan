@@ -1,0 +1,103 @@
+{% set name = "lerc" %}
+{% set version = "4.1.0" %}
+
+package:
+  name: {{ name }}-split
+  version: {{ version }}
+
+source:
+  url: https://github.com/Esri/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: f05b24d2368becab9144873878655bb718910631550d4f786262378c16ab94a7
+  patches:
+    - 0001-osx-find-python-lerc-fail.patch
+
+build:
+  number: 2
+
+outputs:
+  - name: {{ name }}
+    build:
+      run_exports:
+        - {{ pin_subpackage('lerc', max_pin='x.x') }}
+    script: build_lerc.sh   # [unix]
+    script: bld_lerc.bat    # [win]
+    requirements:
+      build:
+        - {{ stdlib('c') }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - cmake
+        - make        # [unix]
+        - ninja-base  # [win]
+
+    # upstream LercTest harness is compiled and
+    # run from lerc_run_test.sh / lerc_run_test.bat.
+    test:
+      script: lerc_run_test.sh   # [unix]
+      script: lerc_run_test.bat  # [win]
+      source_files:
+        - src/LercTest/main.cpp
+        # main.cpp uses a relative include "../LercLib/include/Lerc_c_api.h",
+        # so the headers must sit next to it in ${SRC_DIR}.
+        - src/LercLib/include/
+      requires:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+      commands:
+        - if not exist %LIBRARY_INC%\Lerc_types.h exit 1          # [win]
+        - if not exist %LIBRARY_INC%\Lerc_c_api.h exit 1          # [win]
+        - if not exist %LIBRARY_BIN%\Lerc.dll exit 1              # [win]
+        - if not exist %LIBRARY_LIB%\Lerc.lib exit 1              # [win]
+        - if not exist %LIBRARY_LIB%\pkgconfig\Lerc.pc exit 1     # [win]
+        - test -f ${PREFIX}/lib/libLerc${SHLIB_EXT}               # [unix]
+        - test -f ${PREFIX}/include/Lerc_types.h                  # [unix]
+        - test -f ${PREFIX}/include/Lerc_c_api.h                  # [unix]
+        - test -f ${PREFIX}/lib/pkgconfig/Lerc.pc                 # [unix]
+
+  - name: py{{ name }}
+    build:
+      skip: true  # [py<311]
+    script: build_pylerc.sh   # [unix]
+    script: bld_pylerc.bat    # [win]
+    requirements:
+      host:
+        - pip
+        - python
+        - setuptools
+        - wheel
+        - {{ pin_subpackage(name, exact=True) }}
+      run:
+        - python
+        - numpy >=2.3.0,<3
+        - {{ pin_subpackage(name, exact=True) }}
+    test:
+      imports:
+        - lerc
+      requires:
+        - pip
+      commands:
+        - pip check
+        - python -c "import sys, lerc; rv = lerc.test(); sys.exit(0 if rv in (None, 0) else int(rv))"
+
+about:
+  home: https://github.com/Esri/lerc
+  license: Apache-2.0
+  license_family: Apache
+  license_file:
+    - LICENSE
+    - NOTICE
+  summary: LERC - Limited Error Raster Compression
+  description: |
+    LERC is an open-source image or raster format which
+    supports rapid encoding and decoding for any pixel type
+    (not just RGB or Byte). Users set the maximum compression
+    error per pixel while encoding, so the precision of the
+    original input image is preserved (within user defined
+    error bounds).
+  dev_url: https://github.com/Esri/lerc
+  doc_url: https://github.com/Esri/lerc/blob/master/README.md
+
+extra:
+  recipe-maintainers:
+    - hmaarrfk

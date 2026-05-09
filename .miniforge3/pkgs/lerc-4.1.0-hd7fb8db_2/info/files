@@ -1,0 +1,5 @@
+Library/bin/Lerc.dll
+Library/include/Lerc_c_api.h
+Library/include/Lerc_types.h
+Library/lib/Lerc.lib
+Library/lib/pkgconfig/Lerc.pc

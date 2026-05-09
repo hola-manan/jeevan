@@ -1,0 +1,9 @@
+c_stdlib: vs
+channel_sources: conda-forge
+channel_targets: conda-forge main
+cxx_compiler: vs2022
+libmamba: 2.5.0 h06825f5_0
+libmamba_spdlog: 2.5.0 h9ae1bf1_0
+target_platform: win-64
+zlib: '1'
+zstd: '1.5'

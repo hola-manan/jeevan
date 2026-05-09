@@ -1,0 +1,12 @@
+Library/bin/uriparser.dll
+Library/include/uriparser/Uri.h
+Library/include/uriparser/UriBase.h
+Library/include/uriparser/UriDefsAnsi.h
+Library/include/uriparser/UriDefsConfig.h
+Library/include/uriparser/UriDefsUnicode.h
+Library/include/uriparser/UriIp4.h
+Library/lib/cmake/uriparser-0.9.8/uriparser-config-version.cmake
+Library/lib/cmake/uriparser-0.9.8/uriparser-config.cmake
+Library/lib/cmake/uriparser-0.9.8/uriparser-release.cmake
+Library/lib/cmake/uriparser-0.9.8/uriparser.cmake
+Library/lib/uriparser.lib

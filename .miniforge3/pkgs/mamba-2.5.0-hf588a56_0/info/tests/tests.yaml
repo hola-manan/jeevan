@@ -1,0 +1,14 @@
+- script:
+    content: |-
+      mamba --help
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      CALL %PREFIX%/condabin/mamba.bat --help
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      mkdir %TEMP%\mamba
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      mamba create -p ./myenv --override-channels -c conda-forge --yes python=3.9
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      myenv\python.exe --version
+      if %errorlevel% neq 0 exit /b %errorlevel%
+      myenv\python.exe -c "import os"
+      if %errorlevel% neq 0 exit /b %errorlevel%

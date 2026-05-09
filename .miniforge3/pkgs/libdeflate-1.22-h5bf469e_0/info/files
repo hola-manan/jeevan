@@ -1,0 +1,10 @@
+Library/bin/deflate.dll
+Library/bin/libdeflate-gunzip.exe
+Library/bin/libdeflate-gzip.exe
+Library/include/libdeflate.h
+Library/lib/cmake/libdeflate/libdeflate-config-version.cmake
+Library/lib/cmake/libdeflate/libdeflate-config.cmake
+Library/lib/cmake/libdeflate/libdeflate-targets-release.cmake
+Library/lib/cmake/libdeflate/libdeflate-targets.cmake
+Library/lib/deflate.lib
+Library/lib/pkgconfig/libdeflate.pc

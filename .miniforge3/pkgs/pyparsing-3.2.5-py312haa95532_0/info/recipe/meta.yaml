@@ -1,0 +1,78 @@
+# This file created by conda-build 25.9.0
+# meta.yaml template originally from:
+# C:\Users\task_176397386773031\pyparsing-feedstock\recipe, last modified Mon Nov 24 08:44:37 2025
+# ------------------------------------------------
+
+package:
+  name: pyparsing
+  version: 3.2.5
+source:
+  url: https://pypi.org/packages/source/p/pyparsing/pyparsing-3.2.5.tar.gz
+  sha256: 2df8d5b7b2802ef88e8d016a2eb9c7aeaa923529cd251ed0fe4608275d4105b6
+build:
+  number: '0'
+  script: C:\\miniconda3\\conda-bld\\pyparsing_1763973902692\\_h_env\\python.exe -m
+    pip install . --no-deps --no-build-isolation -vv
+  string: py312haa95532_0
+requirements:
+  host:
+    - bzip2 1.0.8 h2bbff1b_6
+    - ca-certificates 2025.11.4 haa95532_0
+    - expat 2.7.3 h9214b88_0
+    - flit-core 3.12.0 py312he100be2_1
+    - libffi 3.4.4 hd77b12b_1
+    - libzlib 1.3.1 h02ab6af_0
+    - openssl 3.0.18 h543e019_0
+    - pip 25.3 pyhc872135_0
+    - python 3.12.12 h716150d_1
+    - setuptools 80.9.0 py312haa95532_0
+    - sqlite 3.51.0 hda9a48d_0
+    - tk 8.6.15 hf199647_0
+    - tzdata 2025b h04d1e81_0
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - wheel 0.45.1 py312haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.3.1 h02ab6af_0
+  run:
+    - python >=3.12,<3.13.0a0
+test:
+  source_files:
+    - examples
+    - tests
+  imports:
+    - pyparsing
+  requires:
+    - matplotlib-base
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest -vv . --ignore=tests/test_diagram.py -k "not (TestExamples or Test02_WithoutPackrat
+      or Test04_WithPackrat or Test06_WithBoundedPackrat or Test08_WithUnboundedPackrat
+      or Test09_WithLeftRecursionParsing or Test10_WithLeftRecursionParsingBoundedMemo)"
+about:
+  home: https://github.com/pyparsing/pyparsing/
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  summary: Create and execute simple grammars
+  description: 'The pyparsing module is an alternative approach to creating and executing
+
+    simple grammars, vs. the traditional lex/yacc approach, or the use of
+
+    regular expressions. The pyparsing module provides a library of classes
+
+    that client code uses to construct the grammar directly in Python code.
+
+    '
+  doc_url: https://github.com/pyparsing/pyparsing/blob/master/docs/HowToUsePyparsing.rst
+  dev_url: https://github.com/pyparsing/pyparsing/
+extra:
+  recipe-maintainers:
+    - msarahan
+    - ocefpaf
+  final: true
+  copy_test_source_files: true

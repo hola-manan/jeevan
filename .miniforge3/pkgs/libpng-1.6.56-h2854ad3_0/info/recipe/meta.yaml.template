@@ -1,0 +1,68 @@
+{% set name = "libpng" %}
+{% set version = "1.6.56" %}
+{% set short_version = version.split('.')[0] ~ version.split('.')[1] %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://download.sourceforge.net/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8f91e941a07fb1069ebb3855278f82a849e6af14ca05821e14ec3d5348697ea5
+  patches:
+    - 0001-Include-pkg-config-files-in-the-Windows-packages-too.patch
+    - 0002-Ensure-that-lm-is-not-included-in-Windows-pkg-config.patch
+
+build:
+  number: 0
+  skip: true  # [win and vc<14]
+  run_exports:
+    # SO name changes at minor rev bumps.
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
+    - make          # [unix]
+    - cmake >=3.14  # [win]
+    - ninja-base    # [win]
+    - libtool       # [not win]
+    - automake      # [not win]
+  host:
+    - zlib {{ zlib }}
+
+test:
+  requires:
+    - {{ compiler('c') }}  # [unix]
+    - zlib {{ zlib }}
+  files:
+    - test_libpng_write.c
+  commands:
+    - test -f ${PREFIX}/lib/libpng${SHLIB_EXT}                          # [unix]
+    - test -f ${PREFIX}/lib/libpng{{ short_version }}${SHLIB_EXT}       # [unix]
+    - test -f ${PREFIX}/include/libpng{{ short_version }}/png.h         # [unix]
+    - test -f ${PREFIX}/include/libpng{{ short_version }}/pngconf.h     # [unix]
+    - test -f ${PREFIX}/include/libpng{{ short_version }}/pnglibconf.h  # [unix]
+    - libpng-config --version  # [unix]
+    - echo "tests done during build ..."  # [win]
+    - ${CC} test_libpng_write.c -I${PREFIX}/include -L${PREFIX}/lib -lpng -lz -Wl,-rpath,${PREFIX}/lib -o test_libpng_write  # [unix]
+    - ./test_libpng_write  # [unix]
+
+about:
+  home: https://www.libpng.org/pub/png/libpng.html
+  license: Zlib
+  license_family: Other
+  license_file: LICENSE
+  summary: PNG reference library
+  description: |
+    libpng is the official PNG reference library. It supports almost all PNG
+    features, is extensible, and has been extensively tested for over 30 years.
+  doc_url: https://www.libpng.org/pub/png/libpng.html
+  dev_url: https://sourceforge.net/p/libpng/code/ci/libpng16/tree
+
+extra:
+  recipe-maintainers:
+    - ocefpaf
+    - msarahan
+    - pkgw

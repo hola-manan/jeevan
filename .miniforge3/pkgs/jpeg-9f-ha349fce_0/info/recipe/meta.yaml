@@ -1,0 +1,79 @@
+# This file created by conda-build 25.5.0
+# meta.yaml template originally from:
+# C:\Users\task_175749882368159\jpeg-feedstock\recipe, last modified Wed Sep 10 10:10:10 2025
+# ------------------------------------------------
+
+package:
+  name: jpeg
+  version: 9f
+source:
+  url: https://www.ijg.org/files/jpegsrc.v9f.tar.gz
+  sha256: 04705c110cb2469caa79fb71fba3d7bf834914706e9641a4589485c1f832565b
+  patches:
+    - CMakeLists.txt.patch
+build:
+  number: '0'
+  run_exports:
+    - jpeg >=9f,<10a
+  string: ha349fce_0
+requirements:
+  build:
+    - bzip2 1.0.8 h2bbff1b_6
+    - cmake 3.31.2 h53b1909_0
+    - libuv 1.48.0 h827c3e9_0
+    - lz4-c 1.9.4 h2bbff1b_1
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+    - vs2015_runtime 14.44.35208 ha6b5a95_10
+    - vs2019_win-64 19.29.30159 hd50ca63_10
+    - vs_win-64 2019.11 hd50ca63_10
+    - vswhere 3.1.7 haa95532_0
+    - xz 5.6.4 h4754444_1
+    - zlib 1.2.13 h500123d_2
+    - zstd 1.5.6 h8880b57_0
+  host:
+    - ucrt 10.0.22621.0 haa95532_0
+    - vc 14.3 h2df5915_10
+    - vc14_runtime 14.44.35208 h4927774_10
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.2,<15
+    - vc14_runtime >=14.29.30133
+test:
+  files:
+    - testorig.jpg
+  commands:
+    - djpeg -dct int -ppm -outfile testout.ppm testorig.jpg
+    - if not exist %PREFIX%/Library/lib/pkgconfig/libjpeg.pc exit 1
+    - if not exist %PREFIX%/Library/bin/libjpeg.dll exit 1
+    - if not exist %PREFIX%/Library/lib/libjpeg.lib exit 1
+    - if not exist %PREFIX%/Library/lib/jpeg.lib exit 1
+    - if not exist %PREFIX%/Library/lib/jpeg-static.lib exit 1
+    - if not exist %PREFIX%/Library/include/jpeglib.h exit 1
+about:
+  home: https://www.ijg.org/
+  license: IJG
+  license_file: README
+  license_family: Other
+  summary: read/write jpeg COM, EXIF, IPTC medata
+  description: 'This software library is the basis for the processing of images in
+    the
+
+    ubiquitous JPEG format and is used worldwide in a countless number of
+
+    applications of software vendors and in the photographic industry under
+
+    a fee-free license with open source code.
+
+    '
+  doc_url: https://www.ijg.org/files/
+  dev_url: https://www.ijg.org/files/
+extra:
+  recipe-maintainers:
+    - gillins
+    - jakirkham
+    - katietz
+    - msarahan
+  final: true
+  copy_test_source_files: true

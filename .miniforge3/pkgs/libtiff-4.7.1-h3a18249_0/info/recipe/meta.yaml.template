@@ -1,0 +1,93 @@
+{% set version = "4.7.1" %}
+{% set name = "libtiff" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  - url: https://download.osgeo.org/{{ name }}/tiff-{{ version }}.tar.gz
+    sha256: f698d94f3103da8ca7438d84e0344e453fe0ba3b7486e04c5bf7a9a3fabe9b69
+    patches:
+      - patches/use_unix_io.patch  # [win]
+
+build:
+  number: 0
+  run_exports:
+    # Does a very good job of maintaining compatibility.
+    #    https://abi-laboratory.pro/tracker/timeline/libtiff/
+    - {{ pin_subpackage('libtiff', max_pin='x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
+    - cmake         # [win]
+    - libtool       # [unix]
+    - make          # [not win]
+    - ninja-base    # [win]
+    - m2-patch      # [win]
+  host:
+    - jpeg {{ jpeg }}
+    - libwebp-base {{ libwebp }}
+    - xz {{ xz }}
+    - zlib {{ zlib }}
+    - zstd {{ zstd }}
+    # tiffgt.exe requires freeglut on Windows
+    - freeglut 3.4.0  # [win]
+    - lerc 4
+    - libdeflate 1.22
+  run:
+    - jpeg
+    - libwebp-base
+    - xz
+    - zlib
+    - zstd
+    - lerc
+    - libdeflate
+
+test:
+  # test commands are moved to run_test.sh and run_test.bat
+  # downstreams:
+  #   - devil
+  #   - gdk-pixbuf
+  #   - geotiff
+  #   - imagecodecs
+  #   - lcms2
+  #   - leptonica
+  #   - libgd
+  #   - libgdal
+  #   - libwebp
+  #   - opencv >=4  # [not s390x]
+  #   - openjpeg
+  #   - pillow >=8
+  #   - poppler
+  #   - poppler-qt
+  #   - proj
+  #   - qtimageformats
+  #   - qtwebengine
+  #   - vtk-base
+  #   # - r-base
+  #   # - r-ijtiff
+  #   - opencv-python-headless  # channel sfe1ed40
+
+about:
+  home: https://libtiff.gitlab.io/libtiff
+  license: HPND
+  license_file: LICENSE.md
+  license_family: Other
+  summary: Support for the Tag Image File Format (TIFF).
+  description: |
+    This software provides support for the Tag Image File Format (TIFF), a
+    widely used format for storing image data.
+  doc_url: https://libtiff.gitlab.io/libtiff
+  dev_url: https://gitlab.com/libtiff/libtiff
+
+extra:
+  recipe-maintainers:
+    - jakirkham
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - stuarteberg

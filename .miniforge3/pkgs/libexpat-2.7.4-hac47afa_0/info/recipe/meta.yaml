@@ -1,0 +1,58 @@
+# This file created by conda-build 26.1.0
+# ------------------------------------------------
+
+package:
+  name: libexpat
+  version: 2.7.4
+source:
+  url: https://github.com/libexpat/libexpat/releases/download/R_2_7_4/expat-2.7.4.tar.bz2
+  sha256: e6af11b01e32e5ef64906a5cca8809eabc4beb7ff2f9a0e6aabbd42e825135d0
+build:
+  ignore_run_exports_from:
+    - vs2022_win-64
+  number: 0
+  string: hac47afa_0
+requirements:
+  build:
+    - cmake-no-system 4.2.3 hac47afa_0
+    - ucrt 10.0.26100.0 h57928b3_0
+    - vc 14.3 h41ae7f8_34
+    - vc14_runtime 14.44.35208 h818238b_34
+    - vcomp14 14.44.35208 h818238b_34
+    - vs2022_win-64 19.44.35207 ha74f236_34
+    - vs_win-64 2022.14 ha74f236_34
+    - vswhere 3.1.7 h40126e0_1
+  run_constrained:
+    - expat 2.7.4.*
+  host:
+    - ucrt 10.0.26100.0 h57928b3_0
+    - vc 14.3 h41ae7f8_34
+    - vc14_runtime 14.44.35208 h818238b_34
+    - vcomp14 14.44.35208 h818238b_34
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+test: {}
+about:
+  home: http://expat.sourceforge.net/
+  dev_url: https://github.com/libexpat/libexpat
+  license: MIT
+  license_family: MIT
+  license_file: COPYING
+  summary: Expat XML parser library in C
+extra:
+  feedstock-name: expat
+  recipe-maintainers:
+    - isuruf
+    - kwilcox
+    - mingwandroid
+    - msarahan
+    - ocefpaf
+    - pelson
+    - scopatz
+  final: true
+  copy_test_source_files: true
+  flow_run_id: azure_20260216.1.1
+  remote_url: https://github.com/conda-forge/expat-feedstock
+  sha: 2aff2c54a8363ab7e60fce8a11b400fe5299cf2f

@@ -1,0 +1,56 @@
+# This file created by conda-build 25.11.1
+# ------------------------------------------------
+
+package:
+  name: vcomp14
+  version: 14.44.35208
+source:
+  - url: https://download.visualstudio.microsoft.com/download/pr/40b59c73-1480-4caf-ab5b-4886f176bf71/D62841375B90782B1829483AC75695CCEF680A8F13E7DE569B992EF33C6CD14A/vc_redist.x64.exe
+    sha256: d62841375b90782b1829483ac75695ccef680a8f13e7de569b992ef33c6cd14a
+build:
+  binary_relocation: false
+  detect_binary_files_with_prefix: false
+  no_link:
+    - Library/bin/*.dll
+  missing_dso_whitelist:
+    - '*.DLL'
+    - '*.dll'
+  run_exports:
+    strong:
+      - vcomp14 >=14.44.35208
+  number: 34
+  string: h818238b_34
+requirements:
+  run:
+    - ucrt >=10.0.20348.0
+  run_constrained:
+    - vs2015_runtime 14.44.35208.* *_34
+  build: []
+test:
+  commands:
+    - if not exist %LIBRARY_BIN%\vcomp140.dll exit 1
+    - if not exist %PREFIX%\vcomp140.dll exit 1
+about:
+  summary: MSVC OpenMP runtime associated with cl.exe version 19.44.35207 (VS 2022
+    update 14)
+  home: https://visualstudio.microsoft.com/downloads/
+  license: LicenseRef-MicrosoftVisualCpp2015-2022Runtime
+  license_family: Proprietary
+  license_file:
+    - LICENSE.RTF
+    - LICENSE.TXT
+extra:
+  feedstock-name: vc
+  recipe-maintainers:
+    - 183amir
+    - h-vetinari
+    - isuruf
+    - jakirkham
+    - msarahan
+    - patricksnape
+    - pelson
+  final: true
+  copy_test_source_files: true
+  flow_run_id: azure_20260101.1.1
+  remote_url: https://github.com/conda-forge/vc-feedstock
+  sha: 41025d6f35dbe5134294f7ad2cbca95a25b8ec65

@@ -1,0 +1,9 @@
+c_stdlib: vs
+channel_sources: conda-forge
+channel_targets: conda-forge main
+cxx_compiler: vs2022
+fmt: '12.1'
+openssl: '3.5'
+spdlog: '1.17'
+target_platform: win-64
+zstd: '1.5'

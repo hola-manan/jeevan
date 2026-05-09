@@ -1,0 +1,41 @@
+From ed6538864349ba69777e525613e07b1facf6a646 Mon Sep 17 00:00:00 2001
+From: "Viacheslav Ch." <vchychyrko@anaconda.com>
+Date: Mon, 27 Apr 2026 12:37:30 +0300
+Subject: [PATCH] osx find python lerc fail
+
+---
+ OtherLanguages/Python/lerc/_lerc.py | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/OtherLanguages/Python/lerc/_lerc.py b/OtherLanguages/Python/lerc/_lerc.py
+index b7da6a0..eadefbb 100644
+--- a/OtherLanguages/Python/lerc/_lerc.py
++++ b/OtherLanguages/Python/lerc/_lerc.py
+@@ -131,8 +131,22 @@ def _get_lib():
+         lib = None
+ 
+     if not lib or not os.path.exists(lib):
+-        import ctypes.util
+-        lib = ctypes.util.find_library('Lerc')
++        # Look inside the active environment (e.g. a conda env) before
++        # falling back to ctypes.util.find_library, which does not honor
++        # CONDA_PREFIX and ignores libraries next to the python
++        # interpreter on Linux/macOS.
++        import sys
++        for cand in (
++            os.path.join(sys.prefix, 'lib', 'libLerc.so.4'),
++            os.path.join(sys.prefix, 'lib', 'libLerc.dylib'),
++            os.path.join(sys.prefix, 'Library', 'bin', 'Lerc.dll'),
++        ):
++            if os.path.exists(cand):
++                lib = cand
++                break
++        else:
++            import ctypes.util
++            lib = ctypes.util.find_library('Lerc')
+ 
+     return lib
+ 
+-- 
+2.50.1 (Apple Git-155)
+

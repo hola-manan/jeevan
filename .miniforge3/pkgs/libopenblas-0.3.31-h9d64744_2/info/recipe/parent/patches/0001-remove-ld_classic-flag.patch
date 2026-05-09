@@ -1,0 +1,16 @@
+diff --git a/Makefile.system b/Makefile.system
+index ab463f5..a21eb37 100644
+--- a/Makefile.system
++++ b/Makefile.system
+@@ -438,10 +438,7 @@ XCVER = $(shell pkgutil --pkg-info=com.apple.pkg.Xcode |awk '/version:/ {print $
+ ifeq (x$(XCVER)x,xx)
+ XCVER = $(shell pkgutil --pkg-info=com.apple.pkg.CLTools_Executables |awk '/version:/ {print $2}'|cut -d: -f2|cut -f1 -d.)
+ endif
+-ifeq (x$(XCVER), x 15)
+-CCOMMON_OPT += -Wl,-ld_classic
+-FCOMMON_OPT += -Wl,-ld_classic
+-endif
++
+ ifeq ($(shell [ $(XCVER) -ge 16 ] && echo yes),yes)
+ override CEXTRALIB := $(filter-out(-lto_library, $(CEXTRALIB))) 
+ endif

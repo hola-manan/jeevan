@@ -1,0 +1,60 @@
+# This file created by conda-build 24.11.2
+# meta.yaml template originally from:
+# D:\a\1\s\recipe, last modified Mon Dec  2 09:08:04 2024
+# ------------------------------------------------
+
+package:
+  name: win_inet_pton
+  version: 1.1.0
+source:
+  sha256: dd03d942c0d3e2b1cf8bab511844546dfa5f74cb61b241699fa379ad707dea4f
+  url: https://pypi.org/packages/source/w/win_inet_pton/win_inet_pton-1.1.0.tar.gz
+build:
+  noarch: python
+  number: '8'
+  script: D:\\bld\\win_inet_pton_1733130564612\\_h_env\\python.exe -m pip install
+    . -vv --no-deps --no-build-isolation
+  string: pyh7428d3b_8
+requirements:
+  host:
+    - bzip2 1.0.8 h2466b09_7
+    - ca-certificates 2024.8.30 h56e8100_0
+    - libffi 3.4.2 h8ffe710_5
+    - libsqlite 3.47.0 h2466b09_1
+    - libzlib 1.3.1 h2466b09_2
+    - openssl 3.4.0 h2466b09_0
+    - pip 24.3.1 pyh8b19718_0
+    - python 3.9.20 hfaddaf0_1_cpython
+    - setuptools 75.6.0 pyhff2d567_1
+    - tk 8.6.13 h5226925_1
+    - tzdata 2024b hc8b5060_0
+    - ucrt 10.0.22621.0 h57928b3_1
+    - vc 14.3 ha32ba9b_23
+    - vc14_runtime 14.42.34433 he29a5d6_23
+    - vs2015_runtime 14.42.34433 hdffcdeb_23
+    - wheel 0.45.1 pyhd8ed1ab_0
+    - xz 5.2.6 h8d14728_0
+  run:
+    - __win
+    - python >=3.9
+test:
+  imports:
+    - win_inet_pton
+  requires:
+    - python 3.9.*
+about:
+  dev_url: https://github.com/hickeroar/win_inet_pton
+  home: https://github.com/hickeroar/win_inet_pton
+  license: LicenseRef-Public-Domain
+  license_file: LICENSE
+  summary: Native inet_pton and inet_ntop implementation for Python on Windows (with
+    ctypes).
+extra:
+  copy_test_source_files: true
+  final: true
+  flow_run_id: azure_20241202.2.1
+  recipe-maintainers:
+    - ocefpaf
+    - pmlandwehr
+  remote_url: https://github.com/conda-forge/win_inet_pton-feedstock
+  sha: 5bdf01716e59d7b375b9fdda566748990b2d791a

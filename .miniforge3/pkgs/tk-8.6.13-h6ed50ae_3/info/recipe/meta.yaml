@@ -1,0 +1,86 @@
+# This file created by conda-build 25.11.1
+# meta.yaml template originally from:
+# D:\a\1\s\recipe, last modified Mon Jan 26 20:36:50 2026
+# ------------------------------------------------
+
+package:
+  name: tk
+  version: 8.6.13
+source:
+  - url: https://downloads.sourceforge.net/tcl/tcl8.6.13-src.tar.gz
+    folder: tcl8.6.13
+    sha256: 43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066
+  - url: https://downloads.sourceforge.net/tcl/tk8.6.13-src.tar.gz
+    folder: tk8.6.13
+    sha256: 2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675
+build:
+  number: '3'
+  track_features: null
+  detect_binary_files_with_prefix: true
+  run_exports:
+    - tk >=8.6.13,<8.7.0a0
+  ignore_run_exports_from: null
+  string: h6ed50ae_3
+requirements:
+  build:
+    - vs2022_win-64 19.44.35207 ha74f236_34
+    - vs_win-64 2022.14 ha74f236_34
+    - vswhere 3.1.7 h40126e0_1
+  host:
+    - ucrt 10.0.26100.0 h57928b3_0
+    - vc 14.3 h41ae7f8_34
+    - vc14_runtime 14.44.35208 h818238b_34
+    - vcomp14 14.44.35208 h818238b_34
+  run_constrained: []
+  run:
+    - ucrt >=10.0.20348.0
+    - vc >=14.3,<15
+    - vc14_runtime >=14.44.35208
+test:
+  files:
+    - hello.tcl
+  commands:
+    - if not exist %LIBRARY_PREFIX%\\bin\\wish.exe exit 1
+    - if not exist %LIBRARY_PREFIX%\\bin\\tclsh.exe exit 1
+    - if not exist %LIBRARY_PREFIX%\\bin\\wish86.exe exit 1
+    - if not exist %LIBRARY_PREFIX%\\bin\\tclsh86.exe exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tcl.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tclDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tclPlatDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tclPlatDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tclTomMathDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tclTomMath.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tk.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tkDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\include\\tkPlatDecls.h exit 1
+    - if not exist %LIBRARY_PREFIX%\\lib\\tcl86t.lib exit 1
+    - if not exist %LIBRARY_PREFIX%\\bin\\tcl86t.dll exit 1
+    - if not exist %LIBRARY_PREFIX%\\lib\\tclstub86.lib exit 1
+    - if not exist %LIBRARY_PREFIX%\\lib\\tk86t.lib exit 1
+    - if not exist %LIBRARY_PREFIX%\\bin\\tk86t.dll exit 1
+    - if not exist %LIBRARY_PREFIX%\\lib\\tkstub86.lib exit 1
+    - tclsh hello.tcl
+    - tclsh86 hello.tcl
+    - wish hello.tcl
+    - wish86t hello.tcl
+about:
+  home: http://www.tcl.tk/
+  license: TCL
+  license_family: BSD
+  license_file: tcl8.6.13/license.terms
+  summary: A dynamic programming language with GUI support.  Bundles Tcl and Tk.
+  dev_url: https://github.com/tcltk/tk
+extra:
+  recipe-maintainers:
+    - isuruf
+    - jakirkham
+    - matthiasdiener
+    - msarahan
+    - ocefpaf
+    - pelson
+    - xhochy
+  final: true
+  copy_test_source_files: true
+  flow_run_id: azure_20260126.7.1
+  remote_url: https://github.com/conda-forge/tk-feedstock
+  sha: 09300f4f31123f1ca695cc8e5d6dba5fb99982c8
