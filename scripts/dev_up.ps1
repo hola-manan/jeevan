@@ -18,7 +18,7 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "Services running:"
     Write-Host "  - API: http://localhost:8000"
-    Write-Host "  - Streamlit UI: Run 'streamlit run ui/streamlit_app.py'"
+    Write-Host "  - Streamlit UI: Run 'streamlit run src/jeevn/ui/app.py'"
     Write-Host "  - Postgres: localhost:5432"
     Write-Host "  - MinIO: http://localhost:9001"
 } else {
