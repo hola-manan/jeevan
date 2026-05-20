@@ -7,6 +7,9 @@ import sys
 import subprocess
 from pathlib import Path
 
+# src/ layout: add src/ to path so `import jeevn.*` works without pip install -e .
+sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
+
 def print_section(title):
     print(f"\n{'='*60}")
     print(f"  {title}")
@@ -77,12 +80,12 @@ def check_imports():
     print_section("4. Module Imports")
     
     modules = [
-        'api.app',
-        'db.db',
-        'db.models',
-        'ingest.sentinels_ingest',
-        'ingest.run_ingest',
-        'preproc.run_preproc',
+        'jeevn.api.app',
+        'jeevn.infrastructure.db.connection',
+        'jeevn.infrastructure.db.models',
+        'jeevn.ingestion.sentinel',
+        'jeevn.ingestion.runner',
+        'jeevn.remote_sensing.pipeline',
     ]
     
     for mod in modules:
@@ -100,15 +103,15 @@ def check_file_structure():
     print_section("5. File Structure")
     
     required_files = [
-        'api/app.py',
-        'db/db.py',
-        'db/models.py',
-        'ingest/sentinels_ingest.py',
-        'preproc/run_preproc.py',
+        'src/jeevn/api/app.py',
+        'src/jeevn/infrastructure/db/connection.py',
+        'src/jeevn/infrastructure/db/models.py',
+        'src/jeevn/ingestion/sentinel.py',
+        'src/jeevn/remote_sensing/pipeline.py',
         'requirements.txt',
         '.env.example',
-        'tests/test_api.py',
-        'tests/test_models.py',
+        'tests/api/test_api.py',
+        'tests/infrastructure/db/test_models.py',
     ]
     
     missing = []
@@ -126,10 +129,10 @@ def run_syntax_check():
     print_section("6. Python Syntax Check")
     
     files = [
-        'api/app.py',
-        'ingest/sentinels_ingest.py',
-        'preproc/run_preproc.py',
-        'db/models.py',
+        'src/jeevn/api/app.py',
+        'src/jeevn/ingestion/sentinel.py',
+        'src/jeevn/remote_sensing/pipeline.py',
+        'src/jeevn/infrastructure/db/models.py',
     ]
     
     all_ok = True
@@ -157,7 +160,7 @@ def check_database():
     print_section("7. Database")
     
     try:
-        from db import db
+        from jeevn.infrastructure.db import connection as db
         db.init_db()
         print("✅ Database initialization successful")
         print(f"   Using: sqlite:///./data/dev.db")
@@ -172,8 +175,8 @@ def run_unit_tests():
     
     try:
         result = subprocess.run(
-            [sys.executable, '-m', 'pytest', 
-             'tests/test_models.py', 'tests/test_api.py',
+            [sys.executable, '-m', 'pytest',
+             'tests/infrastructure/db/test_models.py', 'tests/api/test_api.py',
              '-v', '--tb=short'],
             timeout=30
         )
@@ -216,8 +219,8 @@ def main():
     if all(results.values()):
         print("\n✅ All checks passed! You're ready to go.")
         print("\nNext steps:")
-        print("  1. Local: uvicorn api.app:app --reload")
-        print("  2. UI: streamlit run ui/streamlit_app.py")
+        print("  1. Local: uvicorn jeevn.api.app:app --reload --app-dir src")
+        print("  2. UI: streamlit run src/jeevn/ui/app.py")
         print("  3. Docker: docker compose -f infra/docker-compose.example.yml up -d")
         return 0
     else:

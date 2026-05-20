@@ -16,17 +16,33 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Making the `jeevn` package importable
+
+One-time editable install (recommended) — then API and UI commands work
+without any extra environment setup:
+
+```bash
+pip install -e .
+```
+
+Alternative for a single shell session (PowerShell): `$env:PYTHONPATH = "$(Get-Location)\src"`.
+
 ### Running the API
 
 ```bash
-uvicorn api.app:app --reload --port 8000
+uvicorn jeevn.api.app:app --reload --port 8000 --app-dir src
 ```
+
+`--app-dir src` lets uvicorn find `jeevn` even without `pip install -e .`.
 
 ### Running the Streamlit UI
 
 ```bash
-streamlit run ui/streamlit_app.py
+streamlit run src/jeevn/ui/app.py
 ```
+
+Streamlit has no `--app-dir` flag, so it needs either `pip install -e .` or
+`PYTHONPATH=src` first — otherwise `ModuleNotFoundError: No module named 'jeevn'`.
 
 ### Using Docker Compose
 
@@ -64,7 +80,7 @@ Optional configuration via environment variables:
 This repo combines two overlapping identities:
 
 1. **Jeevn MVP** — A runnable agricultural remote-sensing system with a synchronous, in-memory-first design
-2. **Clean-room interoperability scaffold** — Agent contracts and a handoff pipeline defined in root-level agent markdown and `plan.json`
+2. **Clean-room interoperability scaffold** — Agent contracts and a handoff pipeline defined under `docs/agents/` (see `docs/agents/pipeline.json`)
 
 The rough edges and known mismatches (e.g., UI/API payload shape differences) are preserved as part of the repo's current character.
 

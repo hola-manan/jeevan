@@ -12,3 +12,6 @@ requests
 
 folium
 streamlit-folium
+reportlab
+matplotlib
+Pillow

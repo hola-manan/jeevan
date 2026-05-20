@@ -43,15 +43,32 @@ DOWNLOAD_PRODUCTS=0
 
 ```powershell
 # Database will auto-init on first API call, or manually:
-python -c "from db import db; db.init_db(); print('✅ Database initialized')"
+python -c "import sys; sys.path.insert(0, 'src'); from jeevn.infrastructure.db import connection as db; db.init_db(); print('✅ Database initialized')"
 ```
 
-### Step 5: Run the API
+### Step 5: Make the `jeevn` package importable
+
+Pick one of these (the first is recommended — set once and forget):
+
+```powershell
+# Option A (recommended): editable install — adds jeevn to your venv permanently
+pip install -e .
+```
+
+```powershell
+# Option B: set PYTHONPATH each session (do this in BOTH terminals before launching)
+$env:PYTHONPATH = "$(Get-Location)\src"
+```
+
+### Step 6: Run the API
 
 ```powershell
 # Terminal 1 - API Server
-uvicorn api.app:app --reload --port 8000
+uvicorn jeevn.api.app:app --reload --port 8000 --app-dir src
 ```
+
+`--app-dir src` adds `src/` to uvicorn's import path, so this works even
+without the editable install or `PYTHONPATH` from Step 5.
 
 You should see:
 ```
@@ -59,12 +76,17 @@ INFO:     Application startup complete
 INFO:     Uvicorn running on http://127.0.0.1:8000
 ```
 
-### Step 6: Run the Streamlit UI (Optional)
+### Step 7: Run the Streamlit UI (Optional)
 
 ```powershell
-# Terminal 2 - Streamlit UI
-streamlit run ui/streamlit_app.py
+# Terminal 2 - Streamlit UI (requires Step 5 — Streamlit has no --app-dir flag)
+streamlit run src/jeevn/ui/app.py
 ```
+
+If you skipped Step 5 you'll get `ModuleNotFoundError: No module named 'jeevn'`
+because Streamlit only puts the script's parent directory on `sys.path`, not
+the project's `src/`. Run `pip install -e .` (Option A) or set
+`$env:PYTHONPATH = "$(Get-Location)\src"` in this terminal first.
 
 The UI will open at `http://localhost:8501`
 
@@ -147,8 +169,8 @@ Invoke-WebRequest -Uri http://localhost:8000/aoi `
 
 ### Option 3: Use Streamlit UI
 
-1. Start API: `uvicorn api.app:app --reload --port 8000`
-2. Start UI: `streamlit run ui/streamlit_app.py`
+1. Start API: `uvicorn jeevn.api.app:app --reload --port 8000 --app-dir src`
+2. Start UI: `streamlit run src/jeevn/ui/app.py`
 3. Click "Check API Health" in the sidebar
 4. Fill in AOI details and submit
 
@@ -171,10 +193,10 @@ Invoke-WebRequest -Uri http://localhost:8000/aoi `
 
 ## Troubleshooting
 
-### "ModuleNotFoundError: No module named 'api'"
+### "ModuleNotFoundError: No module named 'jeevn'"
 - Make sure you're in the repo root directory
-- Make sure venv is activated
-- Reinstall: `pip install -r requirements.txt`
+- The `src/` layout requires `--app-dir src` for uvicorn, or `pip install -e .`
+- For pytest, the project's root `conftest.py` adds `src/` to sys.path
 
 ### "Database locked" error
 - SQLite has concurrency limits. For production, use PostgreSQL
